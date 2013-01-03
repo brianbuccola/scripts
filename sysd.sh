@@ -1,37 +1,46 @@
 #!/bin/bash
-# vim: ft=sh:tw=79:sw=4:
-# wrapper for managing systemd services
+#
+# vim:          ft=sh tw=79 sw=4:
+# file:         sysd.sh
+# author:       Jason Wryan, further modified by Brian Buccola
+#
+# description:  wrapper for managing systemd services
 
-arg1=$1
 
-usage () {
+usage() {
     cat <<EOF
+
     Systemctl options:
 
-    start      |  start a service
-    restart    |  reload unit configuration
-    stop       |  in the name of love
-    enable     |  start at boot
-    is-enabled |  check status
-    status     |  current state
-    disable    |  do not load at boot
+    start       |   start a service
+    restart     |   reload unit configuration
+    stop        |   a service
+    enable      |   start at boot
+    is-enabled  |   check if enabled
+    status      |   current status
+    disable     |   do not start at boot
 
-    list       |  list all running services
-    read       |  read the relevant service file
-    fail       |  list failed services
+    list        |   list all running services
+    installed   |   list all installed unit files
+    read        |   read the relevant service file
+    failed      |   list failed services
 
-    reboot     |  restart
-    shut       |  poweroff
+    reboot      |   restart
+    shut        |   poweroff
 
-    help       |  show the unit manual page
+    help        |   show the unit manual page
 
 EOF
 }
 
+
+# These actions require super user permissions.
 actions=("start" "restart" "stop" "enable" "disable")
 
 for i in "${actions[@]}"; do
-    [[ "$i" = "$arg1" ]] && super="yes"
+    if [[ "$i" = "$1" ]]; then
+        super="yes"
+    fi
 done
 
 
@@ -46,12 +55,12 @@ elif [[ $# -eq 2 ]]; then
 fi
 
 if [[ $# -eq 1 ]]; then
-
     case "$1" in
-        list) systemctl list-units ;;
-       fail*) systemctl --failed   ;;
-      reboot) systemctl reboot     ;;
-       shut*) systemctl poweroff   ;;
-           *) usage && exit        ;;
+             list) systemctl list-units      ;;
+        installed) systemctl list-unit-files ;;
+            fail*) systemctl --failed        ;;
+           reboot) systemctl reboot          ;;
+            shut*) systemctl poweroff        ;;
+                *) usage && exit             ;;
    esac
 fi
