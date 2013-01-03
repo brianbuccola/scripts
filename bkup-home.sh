@@ -13,10 +13,12 @@ BKUPDIR=$HOME/.bkup-home
 EXCL=$BKUPDIR/exclude-list
 LOG=$BKUPDIR/log
 
+SCRIPT=$(basename $0)
+
 usage() {
     cat <<EOF
 
-    bkup-home options:
+    $SCRIPT options:
 
     -n
     --dryrun    |   Do dryrun and pipe output to file instead of stdout

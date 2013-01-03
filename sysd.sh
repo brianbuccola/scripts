@@ -6,11 +6,12 @@
 #
 # description:  wrapper for managing systemd services
 
+SCRIPT=$(basename $0)
 
 usage() {
     cat <<EOF
 
-    Systemctl options:
+    $SCRIPT options:
 
     start       |   start a service
     restart     |   reload unit configuration
