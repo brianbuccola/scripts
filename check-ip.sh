@@ -14,6 +14,6 @@ NEW_IP="$(curl -s www.icanhazip.com)"
 if [[ ${CURRENT_IP} = ${NEW_IP} ]]; then
     exit 0
 else
-    xmessage -center -print "IP has changed. New IP is: ${NEW_IP}."
+    DISPLAY=:0 xmessage -center -print "IP has changed. New IP is: ${NEW_IP}."
     exit 0
 fi
