@@ -16,7 +16,4 @@ fi
 # black hole
 offlineimap -o -u quiet &>/dev/null &
 
-# Update notmuch
-notmuch new
-
 exit 0
