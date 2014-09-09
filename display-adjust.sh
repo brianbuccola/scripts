@@ -8,10 +8,10 @@
 #                   laptop monitor; otherwise, auto-adjust laptop monitor (and
 #                   turn off external monitor).
 
-if [[ -n "$(xrandr | grep "VGA1 connected")" ]]; then
-    xrandr --output VGA1 --mode 1280x1024
-    xrandr --output LVDS1 --off
+if [[ -n "$(xrandr | grep "VGA-0 connected")" ]]; then
+    xrandr --output VGA-0 --auto
+    xrandr --output LVDS --off
 else
-    xrandr --output LVDS1 --auto
-    xrandr --output VGA1 --off
+    xrandr --output LVDS --auto
+    xrandr --output VGA-0 --off
 fi
