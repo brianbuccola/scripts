@@ -30,7 +30,7 @@ fi
 ANSWER=$(DISPLAY=:0 xmessage -center -buttons yes,no -print \
          "Low battery: $PCT_NOW%. Shut down now?")
 if [[ "$ANSWER" == "yes" ]]; then
-    sudo systemctl poweroff
+    systemctl poweroff
 else
     exit 0
 fi
