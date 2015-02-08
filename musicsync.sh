@@ -30,7 +30,7 @@ if [[ ! -f $FILES ]]; then
 fi
 
 sudo rsync \
-    -vuhhhP \
+    -rvzuhhhP \
     --files-from=$FILES \
     --log-file=$LOG \
     $SRC $DEST
