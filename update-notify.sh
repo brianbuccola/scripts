@@ -2,4 +2,6 @@
 #
 # List how many updates are available. Useful for putting inside a status bar.
 
-echo "Updates: $(checkupdates | wc -l)"
+official_updates=$(checkupdates | wc -l)
+aur_updates=$(cower -u | wc -l)
+echo "Updates: ${official_updates} (${aur_updates})"
