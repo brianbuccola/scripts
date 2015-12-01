@@ -1,4 +1,11 @@
 #!/bin/bash
+#
+# file:           brightness-inc.sh
+# author:         Brian Buccola
+#
+# description:    Increase screen brightness by `$inc_amt`. Useful for binding
+#                 a key to, when your laptop's built-in <Fn-BrightnessUp> key
+#                 doesn't work.
 
 max_brightness=255
 min_brightness=5

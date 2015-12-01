@@ -1,4 +1,11 @@
 #!/bin/bash
+#
+# file:           brightness-dec.sh
+# author:         Brian Buccola
+#
+# description:    Decrease screen brightness by `$dec_amt`. Useful for binding
+#                 a key to, when your laptop's built-in <Fn-BrightnessDown> key
+#                 doesn't work.
 
 max_brightness=255
 min_brightness=5

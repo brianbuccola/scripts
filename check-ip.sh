@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# vim               set ft=sh tw=79:
+# vim:              set ft=sh tw=79:
 # file:             check-ip.sh
 # author:           Brian Buccola
 #

@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# Shuffle through wallpaper collection
+# file:        wallpaper-shuffler.sh
+# author:      Brian Buccola
+# description: Shuffle through wallpaper collection.
 #
 
 wallpaper_dir="${HOME}/pictures/wallpaper-collection"
