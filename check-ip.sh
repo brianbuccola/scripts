@@ -6,14 +6,16 @@
 #
 # description:      Check if dynamic ip address has changed.
 
-CURRENT_IP="$(cat $HOME/.current_ip)"
-NEW_IP="$(curl -s www.icanhazip.com)"
+ip_list="${HOME}/.ip_list"
+current_ip="$(curl -s www.icanhazip.com)"
 
-[[ -z "$NEW_IP" ]] && exit 1
+[[ -z "${current_ip}" ]] && exit 1
 
-if [[ ${CURRENT_IP} = ${NEW_IP} ]]; then
-    exit 0
+# If current IP is not in IP list...
+if ! grep -Fxq "${current_ip}" "${ip_list}"; then
+  # ...then display message and exit.
+  DISPLAY=:0 xmessage -center -print "New IP discovered: ${current_ip}."
+  exit 0
 else
-    DISPLAY=:0 xmessage -center -print "IP has changed. New IP is: ${NEW_IP}."
-    exit 0
+  exit 0
 fi
