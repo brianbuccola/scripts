@@ -14,6 +14,6 @@ fi
 
 # Run offlineimap [o]nce, with very little output, and send any output to the
 # black hole
-offlineimap -o -u quiet &>/dev/null &
+offlineimap -o -u quiet &>/dev/null
 
 exit 0
