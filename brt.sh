@@ -44,7 +44,7 @@ if [[ $# -eq 1 ]]; then
     *) echo "Error: invalid argument. Pick a brightness level ($min_brightness-$max_brightness), or say 'up' or 'down'." && exit 1;;
   esac
 elif [[ $# -eq 0 ]]; then
-  echo "Current brightness: $current_brightness."
+  echo "$current_brightness"
   exit 0
 else
   echo "Error: too many arguments."
