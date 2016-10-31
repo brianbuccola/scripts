@@ -3,9 +3,9 @@
 # file:           brt.sh
 # author:         Brian Buccola
 #
-# description:    Increase screen brightness by `$inc_amt`. Useful for binding
-#                 a key to, when your laptop's built-in <Fn-BrightnessUp> key
-#                 doesn't work.
+# description:    Increase/decrease screen brightness by $up_amt/$down_amt.
+#                 Useful for binding a key to, when your laptop's built-in
+#                 <Fn-BrightnessUp> and <Fn-BrightnessDown> keys don't work.
 
 max_brightness=255
 min_brightness=5
