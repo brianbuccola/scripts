@@ -7,14 +7,15 @@
 #                 Useful for binding a key to, when your laptop's built-in
 #                 <Fn-BrightnessUp> and <Fn-BrightnessDown> keys don't work.
 
+brightness_file="/sys/class/backlight/radeon_bl0/brightness"
 max_brightness=255
 min_brightness=5
-current_brightness=$(cat /sys/class/backlight/radeon_bl0/brightness)
+current_brightness=$(cat "$brightness_file")
 up_amt=20
 down_amt=20
 
 brt_change() {
-  echo "$1" | sudo tee /sys/class/backlight/radeon_bl0/brightness
+  echo "$1" | sudo tee "$brightness_file"
 }
 
 brt_up() {
