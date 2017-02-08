@@ -27,10 +27,4 @@ if [[ $PCT_NOW -gt $PCT_THRESHOLD ]]; then
 fi
 
 # If discharging and at $PCT_THRESHOLD or below, raise xmessage warning.
-ANSWER=$(DISPLAY=:0 xmessage -center -buttons yes,no -print \
-         "Low battery: $PCT_NOW%. Shut down now?")
-if [[ "$ANSWER" == "yes" ]]; then
-    systemctl poweroff
-else
-    exit 0
-fi
+DISPLAY=:0 xmessage -center -print "Low battery: $PCT_NOW%."
