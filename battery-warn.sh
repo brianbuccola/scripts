@@ -8,9 +8,9 @@
 #                   certain percentage and gives you the option to shutdown
 #                   immediately. Requires xmessage and bc.
 
-STATUS=$(cat /sys/class/power_supply/ACAD/online)
-NOW=$(cat /sys/class/power_supply/BAT1/energy_now)
-FULL=$(cat /sys/class/power_supply/BAT1/energy_full)
+STATUS=$(cat /sys/class/power_supply/AC/online)
+NOW=$(cat /sys/class/power_supply/BAT0/energy_now)
+FULL=$(cat /sys/class/power_supply/BAT0/energy_full)
 PCT_NOW=$(echo "$NOW / $FULL * 100" | bc -l | sed 's/\.[0-9]*//')
 
 # Percent at which to raise warning.
