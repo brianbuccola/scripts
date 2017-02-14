@@ -26,7 +26,5 @@ if [[ $PCT_NOW -gt $PCT_THRESHOLD ]]; then
     exit 0
 fi
 
-# If discharging and at $PCT_THRESHOLD or below, make a beep and raise xmessage
-# warning.
-echo -e "\a"
+# If discharging and at $PCT_THRESHOLD or below, raise xmessage warning.
 DISPLAY=:0 xmessage -center -print "Low battery: $PCT_NOW%."
