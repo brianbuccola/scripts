@@ -6,7 +6,6 @@
 # description:    List how many updates are available. Useful for putting
 #                 inside a status bar.
 
-sudo pacman -Sy &>/dev/null
-official_updates=$(pacman -Quq | wc -l)
-aur_updates=$(cower -uq | wc -l)
+official_updates=$(checkupdates | wc -l)
+aur_updates=$(cower -u | wc -l)
 echo "Updates: ${official_updates} (${aur_updates})"
