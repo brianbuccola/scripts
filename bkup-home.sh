@@ -8,7 +8,7 @@
 #                   drive, excluding any files and directories in $EXCL.
 
 SRC=$HOME
-DEST=$HOME/mnt/floyd/brian
+DEST=/mnt/floyd/brian
 BKUPDIR=$HOME/.bkup-home
 EXCL=$BKUPDIR/exclude-list
 LOG=$BKUPDIR/log
