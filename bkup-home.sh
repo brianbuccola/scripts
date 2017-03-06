@@ -16,16 +16,11 @@ LOG=$BKUPDIR/log
 SCRIPT=$(basename $0)
 
 usage() {
-    cat <<EOF
-
-    $SCRIPT options:
-
-    -n
-    --dryrun    |   Do dryrun and pipe output to file instead of stdout
-
-    -h
-    --help      |   Show this usage page
-
+cat <<EOF
+usage: $SCRIPT [option]
+options:
+  -n, --dryrun  Do dryrun and pipe output to file instead of stdout
+  -h, --help    Show this usage page
 EOF
 }
 
