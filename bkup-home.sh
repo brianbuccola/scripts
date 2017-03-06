@@ -64,9 +64,8 @@ if [[ $# -eq 0 ]]; then
     exit 0
 elif [[ $# -eq 1 ]]; then
     case $1 in
-              -n) bkup_dryrun && exit 0 ;;
-        --dryrun) bkup_dryrun && exit 0 ;;
-               *) usage       && exit 0 ;;
+        -n|--dryrun) bkup_dryrun && exit 0 ;;
+        *) usage && exit 0 ;;
     esac
 else
     usage && exit 0
