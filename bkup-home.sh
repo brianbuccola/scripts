@@ -25,7 +25,7 @@ EOF
 }
 
 drive_test() {
-    if ! grep -qs $dest /proc/mounts; then
+    if ! grep -qs "$dest " /proc/mounts; then
         echo "Error: Drive not mounted!"
         exit 0
     fi
