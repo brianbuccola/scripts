@@ -8,8 +8,8 @@
 #                   one song per line and relative paths, from the local
 #                   machine to an external mp3 player.
 
-src=$HOME/mnt/floyd/media/music/
-dest=$HOME/mnt/usb/MUSIC/
+src=/mnt/floyd/beets
+dest=/mnt/usb/MUSIC
 files=$HOME/.mpd/playlists/tmp.m3u
 bkupdir=$HOME/.musicsync
 log=$bkupdir/log
