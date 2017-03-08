@@ -8,31 +8,31 @@
 #                   one song per line and relative paths, from the local
 #                   machine to an external mp3 player.
 
-SRC=$HOME/mnt/floyd/media/music/
-DEST=$HOME/mnt/usb/MUSIC/
-FILES=$HOME/.mpd/playlists/tmp.m3u
-BKUPDIR=$HOME/.musicsync
-LOG=$BKUPDIR/log
+src=$HOME/mnt/floyd/media/music/
+dest=$HOME/mnt/usb/MUSIC/
+files=$HOME/.mpd/playlists/tmp.m3u
+bkupdir=$HOME/.musicsync
+log=$bkupdir/log
 
-if [[ ! -d $DEST ]]; then
+if [[ ! -d $dest ]]; then
     echo "Error: Destination drive not mounted!"
     exit 0
 fi
 
-if [[ ! -d $SRC ]]; then
+if [[ ! -d $src ]]; then
     echo "Error: Source drive not mounted!"
     exit 0
 fi
 
-if [[ ! -f $FILES ]]; then
+if [[ ! -f $files ]]; then
     echo "Error: Cannot find playlist!"
     exit 0
 fi
 
 sudo rsync \
     -rvzuhhhP \
-    --files-from=$FILES \
-    --log-file=$LOG \
-    $SRC $DEST
+    --files-from=$files \
+    --log-file=$log \
+    $src $dest
 
 exit 0

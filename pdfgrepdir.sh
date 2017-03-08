@@ -1,6 +1,8 @@
+#!/bin/bash
+#
 # pdfgrep wrapper that greps all pdfs in given directory for a given pattern
+#
+pattern="$1"
+dir="$2"
 
-PATTERN="$1"
-DIR="$2"
-
-find "$DIR" -name "*.pdf" -exec pdfgrep "$PATTERN" {} +
+find "$dir" -name "*.pdf" -exec pdfgrep "$pattern" {} +
