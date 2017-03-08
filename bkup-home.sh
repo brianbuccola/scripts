@@ -7,17 +7,17 @@
 # description:      This script creates a mirror image of $HOME on an external
 #                   drive, excluding any files and directories in $EXCL.
 
-SRC=$HOME
-DEST=/mnt/floyd
-BKUPDIR=$HOME/.bkup-home
-EXCL=$BKUPDIR/exclude-list
-LOG=$BKUPDIR/log
+src=$HOME
+dest=/mnt/floyd
+bkupdir=$HOME/.bkup-home
+excl=$bkupdir/exclude-list
+log=$bkupdir/log
 
-SCRIPT=$(basename $0)
+script=$(basename $0)
 
 usage() {
 cat <<EOF
-usage: $SCRIPT [option]
+usage: $script [option]
 options:
   -n, --dryrun  Do dryrun and pipe output to file instead of stdout
   -h, --help    Show this usage page
@@ -25,7 +25,7 @@ EOF
 }
 
 drive_test() {
-    if ! grep -qs $DEST /proc/mounts; then
+    if ! grep -qs $dest /proc/mounts; then
         echo "Error: Drive not mounted!"
         exit 0
     fi
@@ -35,22 +35,22 @@ bkup() {
     drive_test
     rsync \
         -avuhhh \
-        --exclude-from=$EXCL \
+        --exclude-from=$excl \
         --delete \
         --delete-excluded \
-        --log-file=$LOG \
-        $SRC $DEST
+        --log-file=$log \
+        $src $dest
 }
 
 bkup_dryrun() {
     drive_test
-    echo "Doing dryrun and piping output to $BKUPDIR/dryrun ..."
+    echo "Doing dryrun and piping output to $bkupdir/dryrun ..."
     rsync \
         -avnuhhh \
-        --exclude-from=$EXCL \
+        --exclude-from=$excl \
         --delete \
         --delete-excluded \
-        $SRC $DEST > $BKUPDIR/dryrun
+        $src $dest > $bkupdir/dryrun
     echo "Done."
 }
 
