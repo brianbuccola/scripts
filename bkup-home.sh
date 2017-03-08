@@ -8,7 +8,7 @@
 #                   drive, excluding any files and directories in $EXCL.
 
 SRC=$HOME
-DEST=/mnt/floyd/brian
+DEST=/mnt/floyd
 BKUPDIR=$HOME/.bkup-home
 EXCL=$BKUPDIR/exclude-list
 LOG=$BKUPDIR/log
@@ -39,7 +39,7 @@ bkup() {
         --delete \
         --delete-excluded \
         --log-file=$LOG \
-        $SRC/ $DEST/
+        $SRC $DEST
 }
 
 bkup_dryrun() {
@@ -50,7 +50,7 @@ bkup_dryrun() {
         --exclude-from=$EXCL \
         --delete \
         --delete-excluded \
-        $SRC/ $DEST/ > $BKUPDIR/dryrun
+        $SRC $DEST > $BKUPDIR/dryrun
     echo "Done."
 }
 
