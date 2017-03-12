@@ -1,0 +1,53 @@
+#!/bin/bash
+#
+# file:        new-jekyll-post
+# author:      Brian Buccola <brian.buccola@gmail.com>
+#
+# description: Create a file (for a new Jekyll post) from an input title.
+
+# Where is your Jekyll website?
+jekyll_dir="$HOME/repos/website"
+
+# Convert uppercase to lowercase, convert whitespace to '-', and delete any
+# character that is not alphanumeric or '-'.
+convert_string() {
+    echo "$1" | tr [:upper:] [:lower:] | sed 's/\s\+/-/g' | tr -dc '[:alnum:]-'
+}
+
+# Print message and exit 1.
+die() {
+    echo "$@"
+    exit 1
+}
+
+# Check that we're in $jekyll_dir.
+[[ "$(pwd)" == "$jekyll_dir" ]] || die "Go to $jekyll_dir."
+
+# Get title and turn it into a post filename.
+read -p "Title: " title
+post="_posts/$(date +"%Y-%m-%d")-$(convert_string "$title").md"
+
+# Check that the post doesn't already exist.
+[[ -f "$post" ]] && die "The file \"$post\" already exists."
+
+# Create a temp post, for reading YAML frontmatter from.
+tmp_post=$(mktemp --tmpdir --suffix .md jekyll-post-XXXXXXXXXX)
+
+# Escape any occurrence of '"' in $title.
+title=$(echo "$title" | sed 's/"/\\"/g')
+
+# Create some basic YAML frontmatter.
+cat <<EOT >> "$tmp_post"
+---
+layout: post
+title: "$title"
+date: $(date +"%Y-%m-%d %H:%M")
+---
+
+EOT
+
+# Edit the post, reading $tmp_post into it and putting the cursor on last line.
+vim -c "silent read $tmp_post" + "$post"
+
+# Clean up.
+rm "$tmp_post"
