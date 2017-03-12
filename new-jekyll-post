@@ -24,7 +24,8 @@ die() {
 [[ "$(pwd)" == "$jekyll_dir" ]] || die "Go to $jekyll_dir."
 
 # Get title and turn it into a post filename.
-read -p "Title: " title
+read -p "title: " title
+read -p "tags: " tags
 post="_posts/$(date +"%Y-%m-%d")-$(convert_string "$title").md"
 
 # Check that the post doesn't already exist.
@@ -37,17 +38,19 @@ tmp_post=$(mktemp --tmpdir --suffix .md jekyll-post-XXXXXXXXXX)
 title=$(echo "$title" | sed 's/"/\\"/g')
 
 # Create some basic YAML frontmatter.
-cat <<EOT >> "$tmp_post"
+cat <<EOT > "$tmp_post"
 ---
 layout: post
 title: "$title"
 date: $(date +"%Y-%m-%d %H:%M")
+tags: $tags
 ---
 
 EOT
 
-# Edit the post, reading $tmp_post into it and putting the cursor on last line.
-vim -c "silent read $tmp_post" + "$post"
+# Edit the post, reading $tmp_post into it and putting the cursor on the last
+# line in insert mode.
+vim -c "silent read $tmp_post" + +startinsert "$post"
 
 # Clean up.
 rm "$tmp_post"
