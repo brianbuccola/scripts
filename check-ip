@@ -1,10 +1,9 @@
 #!/bin/bash
 #
-# vim:              set ft=sh tw=79:
-# file:             check-ip.sh
-# author:           Brian Buccola
+# file:        check-ip
+# author:      Brian Buccola <brian.buccola@gmail.com>
 #
-# description:      Check if dynamic ip address has changed.
+# description: Check if dynamic ip address has changed.
 
 ip_list="${HOME}/.ip_list"
 current_ip="$(curl -s www.icanhazip.com)"

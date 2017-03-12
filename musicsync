@@ -1,12 +1,11 @@
 #!/bin/bash
 #
-# vim:              set ft=sh tw=79 sw=4:
-# file:             musicsync.sh
-# author:           Brian Buccola
+# file:        musicsync
+# author:      Brian Buccola <brian.buccola@gmail.com>
 #
-# description:      This script transfers music listed in an m3u playlist, with
-#                   one song per line and relative paths, from the local
-#                   machine to an external mp3 player.
+# description: This script transfers music listed in an m3u playlist, with one
+#              song per line and relative paths, from the local machine to an
+#              external mp3 player.
 
 src=/mnt/floyd/beets
 dest=/mnt/usb/MUSIC

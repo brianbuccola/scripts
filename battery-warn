@@ -1,12 +1,11 @@
 #!/bin/bash
 #
-# vim:              set ft=sh tw=79 sw=4:
-# file:             battery-warn.sh
-# author:           Brian Buccola
+# file:        battery-warn
+# author:      Brian Buccola <brian.buccola@gmail.com>
 #
-# description:      This script warns you when your battery dips below a
-#                   certain percentage and gives you the option to shutdown
-#                   immediately. Requires xmessage and bc.
+# description: This script warns you when your battery dips below a certain
+#              percentage and gives you the option to shutdown immediately.
+#              Requires xmessage and bc.
 
 ac_status=$(cat /sys/class/power_supply/AC/online)
 now=$(cat /sys/class/power_supply/BAT0/energy_now)

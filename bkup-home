@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-# vim:              set ft=sh tw=79 sw=4:
-# file:             bkup-home.sh
-# author:           Brian Buccola
+# file:        bkup-home
+# author:      Brian Buccola <brian.buccola@gmail.com>
 #
-# description:      This script creates a mirror image of $HOME on an external
-#                   drive, excluding any files and directories in $EXCL.
+# description: This script creates a mirror image of $HOME on an external
+#              drive, excluding any files and directories in $EXCL.
 
 src=$HOME
 dest=/mnt/floyd

@@ -1,11 +1,11 @@
 #!/bin/bash
 #
-# file:           brt.sh
-# author:         Brian Buccola
+# file:        brt
+# author:      Brian Buccola <brian.buccola@gmail.com>
 #
-# description:    Increase/decrease screen brightness by $up_amt/$down_amt.
-#                 Useful for binding a key to, when your laptop's built-in
-#                 <Fn-BrightnessUp> and <Fn-BrightnessDown> keys don't work.
+# description: Increase/decrease screen brightness by $up_amt/$down_amt. Useful
+#              for binding a key to, when your laptop's built-in
+#              <Fn-BrightnessUp> and <Fn-BrightnessDown> keys don't work.
 
 brightness_file="/sys/class/backlight/radeon_bl0/brightness"
 max_brightness=255

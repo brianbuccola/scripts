@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# file:           update-notify.sh
-# author:         Brian Buccola
+# file:        update-notify
+# author:      Brian Buccola <brian.buccola@gmail.com>
 #
-# description:    List how many updates are available. Useful for putting
-#                 inside a status bar.
+# description: List how many updates are available. Useful for putting inside a
+#              status bar.
 
 official_updates=$(checkupdates | wc -l)
 aur_updates=$(cower -uq | wc -l)

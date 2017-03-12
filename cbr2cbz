@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-# vim:              set ft=sh tw=79 sw=4:
-# file:             cbr2cbz.sh
-# author:           Brian Buccola
+# file:        cbr2cbz
+# author:      Brian Buccola <brian.buccola@gmail.com>
 #
-# description:      Converts a cbr (comic book rar) file to cbz (comic book
-#                   zip) format.
+# description: Converts a cbr (comic book rar) file to cbz (comic book zip)
+#              format.
 
 cbr_file=$1
 cbz_file="$(basename "${cbr_file}" .cbr).cbz"

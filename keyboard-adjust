@@ -1,10 +1,9 @@
 #!/bin/bash
 #
-# vim:              set ft=sh tw=79 sw=4:
-# file:             keyboard-adjust.sh
-# author:           Brian Buccola
+# file:        keyboard-adjust
+# author:      Brian Buccola <brian.buccola@gmail.com>
 #
-# description:      Set up kbd layouts, and switch caps lock with ctrl_L
+# description: Set up kbd layouts, and switch caps lock with ctrl_L.
 
 setxkbmap -layout us,de,it,il -variant dvp,,, # programmers-dvorak kbd primary
 setxkbmap -option                             # clear options

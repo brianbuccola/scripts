@@ -1,12 +1,11 @@
 #!/bin/bash
 #
-# vim:              set ft=sh tw=79 sw=4:
-# file:             display-adjust.sh
-# author:           Brian Buccola
+# file:        display-adjust
+# author:      Brian Buccola <brian.buccola@gmail.com>
 #
-# description:      If external monitor is present, auto-adjust it and turn off
-#                   laptop monitor; otherwise, auto-adjust laptop monitor (and
-#                   turn off external monitor).
+# description: If external monitor is present, auto-adjust it and turn off
+#              laptop monitor; otherwise, auto-adjust laptop monitor (and turn
+#              off external monitor).
 
 if [[ -n "$(xrandr | grep "VGA1 connected")" ]]; then
     xrandr --output VGA1 --auto

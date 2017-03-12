@@ -1,4 +1,5 @@
 #!/bin/bash
+#
+# Send daily email containing todo's.
 
-# send daily email containing todo's
 cat $HOME/todo | mutt -s "todo" -- me
