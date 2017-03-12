@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# file:        musicsync
+# file:        music-sync
 # author:      Brian Buccola <brian.buccola@gmail.com>
 #
 # description: This script transfers music listed in an m3u playlist, with one
