@@ -8,10 +8,14 @@
 # Where is your Jekyll website?
 jekyll_dir="$HOME/repos/website"
 
-# Convert uppercase to lowercase, convert whitespace to '-', and delete any
-# character that is not alphanumeric or '-'.
+# Convert uppercase to lowercase, whitespace to '-', and '/' to '-', and delete
+# any character that is not alphanumeric or '-'.
 convert_string() {
-    echo "$1" | tr [:upper:] [:lower:] | sed 's/\s\+/-/g' | tr -dc '[:alnum:]-'
+    echo "$1" \
+        | tr [:upper:] [:lower:] \
+        | sed 's/\s\+/-/g'       \
+        | sed 's,/,-,g'          \
+        | tr -dc '[:alnum:]-'
 }
 
 # Print message and exit 1.
