@@ -26,4 +26,4 @@ if [[ $pct_now -gt $pct_threshold ]]; then
 fi
 
 # If discharging and at $PCT_THRESHOLD or below, raise xmessage warning.
-DISPLAY=:0 xmessage -center -print "Low battery: $pct_now%."
+DISPLAY=:0 xmessage -buttons okay:0 -center -default okay -print "Low battery: $pct_now%."
