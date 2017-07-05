@@ -19,10 +19,10 @@ if [[ $ac_status -eq 1 ]]; then
     exit 0
 fi
 
-# If more than $PCT_THRESHOLD, do nothing and exit.
+# If more than $pct_threshold, do nothing and exit.
 if [[ $pct_now -gt $pct_threshold ]]; then
     exit 0
 fi
 
-# If discharging and at $PCT_THRESHOLD or below, raise xmessage warning.
+# If discharging and at $pct_threshold or below, raise xmessage warning.
 DISPLAY=:0 xmessage -buttons okay:0 -center -default okay -print "Low battery: $pct_now%."
