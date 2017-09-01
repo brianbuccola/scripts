@@ -38,6 +38,7 @@ bkup() {
         --delete \
         --delete-excluded \
         --log-file=$log \
+        --stats \
         $src $dest
 }
 
@@ -49,6 +50,7 @@ bkup_dryrun() {
         --exclude-from=$excl \
         --delete \
         --delete-excluded \
+        --stats \
         $src $dest > $bkupdir/dryrun
     echo "Done."
 }
