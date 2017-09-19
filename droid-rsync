@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# File: droid-rsync
+# Author: Brian Buccola <brian.buccola@gmail.com>
+#
+# Description: Start rsync daemon and port forwarding on a remote Droid in order
+# to transfer files to/from a PC. Based on the procedure described at
+# <http://ptspts.blogspot.ca/2015/03/how-to-use-rsync-over-adb-on-android.html>
+#
+# Make sure you have rsync installed on your Droid, along with a config file
+# rsyncd.conf with at least the following contents:
+#
+# address = 127.0.0.1
+# port = 1873
+# [root]
+# path = /
+# use chroot = false
+# read only = false
+#
+# Place the rsync binary someplace executable (e.g. /data/local/tmp) and
+# rsyncd.conf someplace writable (e.g. /sdcard).
+#
+# Run this script (droid-rsync) in one terminal, then run rsync in another
+# terminal. An example command, which transfers sdcard from Droid to PC:
+#
+# rsync -avhhhP --stats rsync://localhost:6010/root/sdcard ~/droid
+
+rsync_bin="/data/local/tmp/rsync"
+rsyncd_conf="/sdcard/rsyncd.conf"
+
+if [[ $(adb devices | wc -l) -lt 3 ]]; then
+    echo "Device isn't attached. Have you unlocked it?"
+    exit 1
+fi
+
+if [[ $(adb devices | wc -l) -gt 3 ]]; then
+    echo "Something's wrong. More than one device attached? Run 'adb devices' to see."
+    exit 1
+fi
+
+echo "Forwarding host port 6010 to device port 1873..."
+adb forward tcp:6010 tcp:1873
+
+echo "Starting rsync daemon on Droid device..."
+echo "Run 'rsync [OPTIONS] rsync://localhost:6010/root/[SRC] [DEST]' to transfer files from Droid to PC."
+echo "Run 'rsync [OPTIONS] [SRC] rsync://localhost:6010/root/[DEST]' to transfer files from PC to Droid."
+echo "Hit Ctrl-C then 'adb kill-server' to quit."
+adb shell "${rsync_bin}" --daemon --no-detach --config="${rsyncd_conf}"
