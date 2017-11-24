@@ -8,4 +8,4 @@
 
 official_updates=$(checkupdates | wc -l)
 aur_updates=$(cower -uq | wc -l)
-echo "Updates: ${official_updates} (${aur_updates})"
+echo "${official_updates} (${aur_updates})"
