@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# file:        checkup-aur
+# author:      Brian Buccola <brian.buccola@gmail.com>
+#
+# description: Check for the number of AUR updates, and pipe output to a file.
+#              Useful for running as an hourly systemd timer/service, then
+#              piping the contents to a status bar.
+
+cower -qu | wc -l > /tmp/checkup-aur

@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# file:        i3lock-blur
+# author:      Brian Buccola <brian.buccola@gmail.com>
+#
+# description: Lock the screen using a blurred screenshot & lock icon. Requires
+#              imagemagick and i3lock.
+
+screenshot=$(mktemp -p /tmp screenshot-XXXX.png)
+icon="$HOME/.lock.png"
+import -silent -window root "$screenshot"
+convert "$screenshot" -scale 10% -scale 1000% "$screenshot"
+[[ -f "$icon" ]] && convert "$screenshot" "$icon" -gravity center -composite -matte "$screenshot"
+i3lock -n -u -i "$screenshot"
+rm "$screenshot"
