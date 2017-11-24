@@ -12,7 +12,7 @@ full=$(cat /sys/class/power_supply/BAT0/energy_full)
 pct_now=$(echo "$now / $full * 100" | bc -l | sed 's/\.[0-9]*//')
 
 # Percent at which to raise warning.
-pct_threshold=10
+pct_threshold=5
 
 # If charging, do nothing and exit.
 if [[ $ac_status -eq 1 ]]; then
