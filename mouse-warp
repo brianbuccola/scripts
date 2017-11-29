@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# file:        mouse-warp
+# author:      Brian Buccola <brian.buccola@gmail.com>
+#
+# description: Warp mouse to the bottom-right corner of the screen.
+
+# Get the width and height of the screen.
+w=$(xrandr | grep '*' | awk '{ print $1 }' | tr x ' ' | awk '{ print $1 }')
+h=$(xrandr | grep '*' | awk '{ print $1 }' | tr x ' ' | awk '{ print $2 }')
+
+echo "w=$w; h=$h"
+
+# 0 0 is top-left, so "$w" "$h" is bottom-right.
+xdotool mousemove "$w" "$h"
