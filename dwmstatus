@@ -9,10 +9,12 @@
 bat() {
     bat_status=$(</sys/class/power_supply/BAT0/status)
     bat_pct=$(</sys/class/power_supply/BAT0/capacity)
+    bat_time_left=$(acpi -b | awk '{ print $5 }' | cut -d: -f1,2)
 
     [[ "${bat_status}" = "Charging"    ]] && echo -n "↑ "
     [[ "${bat_status}" = "Discharging" ]] && echo -n "↓ "
-    echo "${bat_pct}%"
+    echo -n "${bat_pct}%"
+    [[ "${bat_status}" = "Discharging" ]] && echo " (${bat_time_left})"
 }
 
 ban() {
