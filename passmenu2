@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+#
+# file:        passmenu2
+# author:      Brian Buccola <brian.buccola@gmail.com>
+#
+# description: Type (or copy) password and/or username using pass and xdotool.
+#              Based on the passmenu script that ships with pass. For typing
+#              a username, the pass file should contain a line starting with
+#              "user: ", "Username: ", etc. (or change the regex below). If
+#              --typeboth is used, a tab is entered after the username, before
+#              the password.
+#
+# usage: passmenu2 [--typepass|--typeuser|--typeboth] [--hitreturn]
+#        passmenu2 [-p|-u|-b] [-r]
+
+shopt -s nullglob globstar
+
+# What should we type (if anything)?
+case "$1" in
+    -p|--typepass) typewhat="pass"; shift ;;
+    -u|--typeuser) typewhat="user"; shift ;;
+    -b|--typeboth) typewhat="both"; shift ;;
+esac
+
+# Hit return after typing?
+case "$1" in
+    -r|--hitreturn) hitreturn="yes"; shift ;;
+esac
+
+# Get a list of password files, stripping prefix and suffix.
+prefix=${PASSWORD_STORE_DIR-~/.password-store}
+password_files=( "$prefix"/**/*.gpg )
+password_files=( "${password_files[@]#"$prefix"/}" )
+password_files=( "${password_files[@]%.gpg}" )
+
+# Pass the list to dmenu to select a specific password file.
+password_file=$(printf '%s\n' "${password_files[@]}" | dmenu "$@")
+
+# If the user cancels dmenu, just exit.
+[[ -n $password_file ]] || exit
+
+# Get password and username.
+pass=$(pass show "$password_file" | head -n1)
+user=$(pass show "$password_file" | grep "^[Uu]ser" | sed 's/[Uu]ser[^:]*:\s*//')
+
+# Main.
+case "$typewhat" in
+    pass) # Type password.
+        if [[ "$hitreturn" == "yes" ]]; then
+            printf "%s\r" "$pass" | xdotool type --clearmodifiers --file -
+        else
+            printf "%s"   "$pass" | xdotool type --clearmodifiers --file -
+        fi
+        ;;
+    user) # Type username.
+        if [[ "$hitreturn" == "yes" ]]; then
+            printf "%s\r" "$user" | xdotool type --clearmodifiers --file -
+        else
+            printf "%s"   "$user" | xdotool type --clearmodifiers --file -
+        fi
+        ;;
+    both) # Type username and password.
+        if [[ "$hitreturn" == "yes" ]]; then
+            printf "%s\t%s\r" "$user" "$pass" | xdotool type --clearmodifiers --file -
+        else
+            printf "%s\t%s"   "$user" "$pass" | xdotool type --clearmodifiers --file -
+        fi
+        ;;
+    *) # Don't type. Just copy.
+        pass show -c "$password_file" 2>/dev/null
+        ;;
+esac
