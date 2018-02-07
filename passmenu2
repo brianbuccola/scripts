@@ -33,10 +33,10 @@ password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
-# Pass the list to dmenu to select a specific password file.
-password_file=$(printf '%s\n' "${password_files[@]}" | dmenu "$@")
+# Pass the list to rofi to select a specific password file.
+password_file=$(printf '%s\n' "${password_files[@]}" | dmenu -p pass: "$@")
 
-# If the user cancels dmenu, just exit.
+# If the user cancels rofi, just exit.
 [[ -n $password_file ]] || exit
 
 # Get password and username.
