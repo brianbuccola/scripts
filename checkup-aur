@@ -7,4 +7,4 @@
 #              Useful for running as an hourly systemd timer/service, then
 #              piping the contents to a status bar.
 
-cower -qu | wc -l > /tmp/checkup-aur
+auracle --quiet sync | wc -l > /tmp/checkup-aur
