@@ -7,3 +7,4 @@
 #              status bar.
 
 official_updates=$(pacman -Qqu --dbpath /tmp/checkup-db-brian | wc -l)
+aur_updates=$(</tmp/checkup-aur)
