@@ -6,6 +6,4 @@
 # description: List how many updates are available. Useful for putting inside a
 #              status bar.
 
-official_updates=$(checkupdates | wc -l)
-aur_updates=$(cower -uq | wc -l)
-echo "${official_updates} (${aur_updates})"
+official_updates=$(pacman -Qqu --dbpath /tmp/checkup-db-brian | wc -l)
