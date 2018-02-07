@@ -7,7 +7,7 @@
 #              to use rofi instead.)
 
 # Get manpages, pipe to dmenu, and prettify.
-manpage=$(man -k . | awk '{ print $1 " " $2 }' | dmenu "$@" | awk '{ print $2 " " $1 }' | tr -d '()')
+manpage=$(man -k . | awk '{ print $1 " " $2 }' | dmenu -p man: "$@" | awk '{ print $2 " " $1 }' | tr -d '()')
 
 # If user hits <Esc>, exit.
 [[ -n "${manpage}" ]] || exit
