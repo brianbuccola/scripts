@@ -79,10 +79,11 @@ vol() {
 
 wif() {
     interface=$(ip route | awk '/^default/ { print $5 ; exit }')
+    wifi_essid=$(iwconfig "${interface}" | awk -F '"' '/ESSID/ {print $2}')
     wifi_status=$(</sys/class/net/"${interface}"/operstate)
     wifi_quality=$(grep "${interface}" /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
 
-    [[ "${wifi_status}" = "up"   ]] && echo "${wifi_quality}%" || echo "down"
+    [[ "${wifi_status}" = "up"   ]] && echo "${wifi_essid} ${wifi_quality}%" || echo "down"
 }
 
-xsetroot -name "wifi $(wif) · $(ban) · mem $(mem) · bat $(bat) · vol $(vol) · ups $(ups) · $(dat)"
+xsetroot -name "$(wif) · $(ban) · mem $(mem) · bat $(bat) · vol $(vol) · ups $(ups) · $(dat)"
