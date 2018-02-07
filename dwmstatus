@@ -85,4 +85,4 @@ wif() {
     [[ "${wifi_status}" = "up"   ]] && echo "${wifi_quality}%" || echo "down"
 }
 
-xsetroot -name "wifi $(wif) · mem $(mem) · bat $(bat) · vol $(vol) · ups $(ups) · $(dat)"
+xsetroot -name "wifi $(wif) · $(ban) · mem $(mem) · bat $(bat) · vol $(vol) · ups $(ups) · $(dat)"
