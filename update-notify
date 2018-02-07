@@ -8,3 +8,4 @@
 
 official_updates=$(pacman -Qqu --dbpath /tmp/checkup-db-brian | wc -l)
 aur_updates=$(</tmp/checkup-aur)
+echo "${official_updates}(${aur_updates})"
