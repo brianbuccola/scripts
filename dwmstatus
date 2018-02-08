@@ -11,10 +11,10 @@ bat() {
     bat_pct=$(</sys/class/power_supply/BAT0/capacity)
     bat_time_left=$(acpi -b | awk '{ print $5 }' | cut -d: -f1,2)
 
-    [[ "${bat_status}" = "Charging"    ]] && echo -n "↑ "
-    [[ "${bat_status}" = "Discharging" ]] && echo -n "↓ "
-    echo -n "${bat_pct}%"
-    [[ "${bat_status}" = "Discharging" ]] && echo " (${bat_time_left})"
+    [[ "$bat_status" = "Charging"    ]] && echo -n "↑ "
+    [[ "$bat_status" = "Discharging" ]] && echo -n "↓ "
+    echo -n "$bat_pct%"
+    [[ "$bat_status" = "Discharging" ]] && echo " ($bat_time_left)"
 }
 
 ban() {
@@ -59,31 +59,31 @@ dat() {
 mem() {
     mem=$(awk '/^Mem/ { print $3 }' <(free -h))
 
-    echo "${mem}"
+    echo "$mem"
 }
 
 ups() {
     ups_official=$(pacman -Qqu --dbpath /tmp/checkup-db-brian | wc -l)
     ups_aur=$(</tmp/checkup-aur)
 
-    echo "${ups_official}(${ups_aur})"
+    echo "$ups_official($ups_aur)"
 }
 
 vol() {
     vol_status=$(amixer get Master | tail -n1 | sed -r 's/.*\[(on|off)\].*/\1/')
     vol_pct=$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
 
-    [[ "${vol_status}" = "off" ]] && echo "mute"
-    [[ "${vol_status}" = "on"  ]] && echo "${vol_pct}%"
+    [[ "$vol_status" = "off" ]] && echo "mute"
+    [[ "$vol_status" = "on"  ]] && echo "$vol_pct%"
 }
 
 wif() {
     interface=$(ip route | awk '/^default/ { print $5 ; exit }')
-    wifi_essid=$(iwconfig "${interface}" | awk -F '"' '/ESSID/ {print $2}')
-    wifi_status=$(</sys/class/net/"${interface}"/operstate)
-    wifi_quality=$(grep "${interface}" /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
+    wifi_essid=$(iwconfig "$interface" | awk -F '"' '/ESSID/ { print $2 }')
+    wifi_status=$(</sys/class/net/"$interface"/operstate)
+    wifi_quality=$(grep "$interface" /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
 
-    [[ "${wifi_status}" = "up"   ]] && echo "${wifi_essid} ${wifi_quality}%" || echo "down"
+    [[ "$wifi_status" = "up"   ]] && echo "$wifi_essid $wifi_quality%" || echo "down"
 }
 
 xsetroot -name "$(wif) · $(ban) · mem $(mem) · bat $(bat) · vol $(vol) · ups $(ups) · $(dat)"
