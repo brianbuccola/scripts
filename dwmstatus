@@ -53,7 +53,7 @@ ban() {
 }
 
 dat() {
-    date '+%a %d %b %H:%M:%S'
+    date '+%a %d %b %H:%M'
 }
 
 mem() {
