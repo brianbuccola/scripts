@@ -3,7 +3,7 @@
 # file:        dwmstatus
 # author:      Brian Buccola <brian.buccola@gmail.com>
 #
-# description: Functions for printing system info into DWM's status bar via
+# description: Functions for printing system info into dwm's status bar via
 #              xsetroot.
 
 bat() {
