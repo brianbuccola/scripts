@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# file:        slock-toggle
+# author:      Brian Buccola <brian.buccola@gmail.com>
+#
+# description: Toggle screensaver and screen lock.
+
+if pgrep xautolock &>/dev/null; then
+    pkill xautolock
+    xset s off
+    echo "Screensaver and slock now OFF."
+else
+    xset s 300 300
+    xautolock -time 5 -locker slock &
+    echo "Screensaver and slock now ON."
+fi
