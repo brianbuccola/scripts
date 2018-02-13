@@ -5,6 +5,15 @@
 #
 # description: Toggle screensaver and screen lock.
 
+if [[ "$#" -gt 0 ]]; then
+    if pgrep xautolock &>/dev/null; then
+        echo "Screensaver and slock are ON."
+    else
+        echo "Screensaver and slock are OFF."
+    fi
+    exit 0
+fi
+
 if pgrep xautolock &>/dev/null; then
     pkill xautolock
     xset s off
