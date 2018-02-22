@@ -77,6 +77,24 @@ vol() {
     [[ "$vol_status" = "on"  ]] && echo "$vol_pct%"
 }
 
+wea() {
+    # Print weather info from http://openweathermap.org/.
+    api_key="4bbc64162016d9e345436714dd896ecc"
+    city_id="Paris,FR"
+    # city_id="London,CA"
+    # city_id="New Orleans,US"
+    units="metric"
+    temp_symbol="°C"
+
+    weather_url="http://api.openweathermap.org/data/2.5/weather?q=$city_id&appid=$api_key&units=$units"
+    weather_info=$(wget -qO- "$weather_url")
+    weather_desc=$(echo "$weather_info" | grep -o -e '\"description\":\"[^\"]*\"' | head -n1 | awk -F ':' '{print $2}' | tr -d '"')
+    weather_temp=$(echo "$weather_info" | grep -o -e '\"temp\":[^,]*' | awk -F ':' '{print $2}' | tr -d '"')
+    weather_temp=$(echo "($weather_temp + 0.5) / 1" | bc)
+
+    echo "$weather_desc $weather_temp$temp_symbol"
+}
+
 wif() {
     interface=$(ip route | awk '/^default/ { print $5 ; exit }')
     wifi_essid=$(iwconfig "$interface" | awk -F '"' '/ESSID/ { print $2 }')
@@ -86,4 +104,4 @@ wif() {
     [[ "$wifi_status" = "up"   ]] && echo "$wifi_essid $wifi_quality%" || echo "down"
 }
 
-xsetroot -name "$(wif) · $(ban) · mem $(mem) · bat $(bat) · vol $(vol) · ups $(ups) · $(dat)"
+xsetroot -name "$(wif) · $(ban) · mem $(mem) · bat $(bat) · vol $(vol) · ups $(ups) · $(wea) · $(dat)"
