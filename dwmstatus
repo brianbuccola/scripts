@@ -96,7 +96,7 @@ wea() {
 }
 
 wif() {
-    interface=$(ip route | awk '/^default/ { print $5 ; exit }')
+    interface=$(iwconfig 2>&1 | awk '/^w/ { print $1 }')
     wifi_essid=$(iwconfig "$interface" | awk -F '"' '/ESSID/ { print $2 }')
     wifi_status=$(</sys/class/net/"$interface"/operstate)
     wifi_quality=$(grep "$interface" /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
