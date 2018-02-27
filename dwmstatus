@@ -101,7 +101,11 @@ wif() {
     wifi_status=$(</sys/class/net/"$interface"/operstate)
     wifi_quality=$(grep "$interface" /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
 
-    [[ "$wifi_status" = "up"   ]] && echo "$wifi_essid $wifi_quality%" || echo "down"
+    [[ "$wifi_status" = "up"   ]] && echo "$wifi_essid $wifi_quality%"
 }
 
-xsetroot -name "$(wif) · $(ban) · mem $(mem) · bat $(bat) · vol $(vol) · ups $(ups) · $(wea) · $(dat)"
+if [[ -z "$(wif)" ]]; then
+    xsetroot -name "(no wifi) · mem $(mem) · bat $(bat) · vol $(vol) · $(dat)"
+else
+    xsetroot -name "$(wif) · $(ban) · mem $(mem) · bat $(bat) · vol $(vol) · ups $(ups) · $(wea) · $(dat)"
+fi
