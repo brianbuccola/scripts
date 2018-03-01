@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# file:        volmenu
+# author:      Brian Buccola <brian.buccola@gmail.com>
+#
+# description: Perform some volume actions using dmenu.
+
+# Array of volume actions.
+vol_actions=("mute" "reset")
+
+# List volume actions (separated by a newline character) and pipe to dmenu.
+vol_action=$(echo "${vol_actions[@]}" | tr ' ' '\n' | dmenu -p vol: "$@")
+
+# If user hits <Esc>, exit.
+[[ -z "$vol_action" ]] && exit
+
+# Otherwise, perform the volume action.
+case "$vol_action" in
+    "mute") pactl set-sink-mute @DEFAULT_SINK@ toggle ;;
+    "reset") pactl set-sink-volume @DEFAULT_SINK@ 100% ;;
+esac
