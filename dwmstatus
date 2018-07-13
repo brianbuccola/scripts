@@ -63,7 +63,7 @@ mem() {
 }
 
 ups() {
-    ups_official=$(pacman -Qqu --dbpath /tmp/checkup-db-brian | wc -l)
+    ups_official=$(</tmp/checkup-official)
     ups_aur=$(</tmp/checkup-aur)
 
     echo "$ups_official($ups_aur)"
