@@ -11,10 +11,23 @@ bat() {
     bat_pct=$(</sys/class/power_supply/BAT0/capacity)
     bat_time_left=$(acpi -b | awk '{ print $5 }' | cut -d: -f1,2)
 
-    [[ "$bat_status" = "Charging"    ]] && echo -n "↑ "
-    [[ "$bat_status" = "Discharging" ]] && echo -n "↓ "
+    if [[ "$bat_pct" -ge 80 ]]; then
+        echo -n " "
+    elif [[ "$bat_pct" -ge 60 ]]; then
+        echo -n " "
+    elif [[ "$bat_pct" -ge 40 ]]; then
+        echo -n " "
+    elif [[ "$bat_pct" -ge 20 ]]; then
+        echo -n " "
+    elif [[ "$bat_pct" -ge 10 ]]; then
+        echo -n " "
+    else
+        echo -n " "
+    fi
     echo -n "$bat_pct%"
-    [[ "$bat_status" = "Discharging" ]] && echo " ($bat_time_left)"
+    [[ "$bat_status" = "Discharging" ]] && echo -n " ($bat_time_left)"
+    [[ "$bat_status" = "Charging"    ]] && echo -n " "
+    [[ "$bat_status" = "Unknown"     ]] && echo -n " ﮣ"
 }
 
 ban() {
@@ -34,7 +47,7 @@ ban() {
     tx_kib=$(( $tx_rate >> 10 ))
 
     # incoming
-    echo -n "↓ "
+    echo -n "ﰬ "
     if [[ "$rx_rate" -gt 1048576 ]]; then
         printf '%sM' $(echo "scale=1; $rx_kib / 1024" | bc)
     else
@@ -44,7 +57,7 @@ ban() {
     echo -n " "
 
     # outgoing
-    echo -n "↑ "
+    echo -n "ﰵ "
     if [[ "$tx_rate" -gt 1048576 ]]; then
         printf '%sM' $(echo "scale=1; $tx_kib / 1024" | bc)
     else
@@ -59,28 +72,28 @@ dat() {
 mem() {
     mem=$(awk '/^Mem/ { print $3 }' <(free -h))
 
-    echo "$mem"
+    echo -n "$mem"
 }
 
 ups() {
     ups_official=$(</tmp/checkup-official)
     ups_aur=$(</tmp/checkup-aur)
 
-    echo "$ups_official($ups_aur)"
+    echo -n "$ups_official($ups_aur)"
 }
 
 vol() {
     vol_status=$(amixer get Master | tail -n1 | sed -r 's/.*\[(on|off)\].*/\1/')
     vol_pct=$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')
 
-    [[ "$vol_status" = "off" ]] && echo "mute"
-    [[ "$vol_status" = "on"  ]] && echo "$vol_pct%"
+    [[ "$vol_status" = "off" ]] && echo -n "mute"
+    [[ "$vol_status" = "on"  ]] && echo -n "$vol_pct%"
 }
 
 wea() {
     weather=$(</tmp/weather)
 
-    echo "$weather"
+    echo -n "$weather"
 }
 
 wif() {
@@ -89,11 +102,11 @@ wif() {
     wifi_status=$(</sys/class/net/"$interface"/operstate)
     wifi_quality=$(grep "$interface" /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
 
-    [[ "$wifi_status" = "up"   ]] && echo "$wifi_essid $wifi_quality%"
+    [[ "$wifi_status" = "up"   ]] && echo -n "$wifi_essid $wifi_quality%"
 }
 
 if [[ -z "$(wif)" ]]; then
-    xsetroot -name "(no wifi) · mem $(mem) · bat $(bat) · vol $(vol) · $(dat)"
+    xsetroot -name "$(bat)  墳 $(vol)   $(dat)"
 else
-    xsetroot -name "$(wif) · $(ban) · mem $(mem) · bat $(bat) · vol $(vol) · ups $(ups) · $(wea) · $(dat)"
+    xsetroot -name " $(wif)  $(ban)   $(wea)   $(ups)  $(bat)   $(vol)   $(dat)"
 fi
