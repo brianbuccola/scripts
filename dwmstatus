@@ -75,6 +75,12 @@ mem() {
     echo -n "$mem"
 }
 
+mpd() {
+    mpd=$(mpc current -f '[%artist% - ]%title%')
+
+    [[ -n "$mpd" ]] && echo -n "$mpd" || exit 1
+}
+
 ups() {
     ups_official=$(</tmp/checkup-official)
     ups_aur=$(</tmp/checkup-aur)
@@ -106,7 +112,7 @@ wif() {
 }
 
 if [[ -z "$(wif)" ]]; then
-    xsetroot -name "$(bat)  墳 $(vol)   $(dat)"
+    xsetroot -name "$(mpd && echo -n '  ')$(bat)  墳 $(vol)   $(dat)"
 else
-    xsetroot -name " $(wif)  $(ban)   $(wea)   $(ups)  $(bat)   $(vol)   $(dat)"
+    xsetroot -name "$(mpd && echo -n '  ') $(wif)  $(ban)   $(wea)   $(ups)  $(bat)   $(vol)   $(dat)"
 fi
