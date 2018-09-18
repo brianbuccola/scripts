@@ -6,7 +6,7 @@
 # description: Perform some volume actions using dmenu.
 
 # Array of volume actions.
-vol_actions=("mute" "reset")
+vol_actions=("[m]ute" "[r]eset" "[j]" "[k]" "[h]alf")
 
 # List volume actions (separated by a newline character) and pipe to dmenu.
 vol_action=$(echo "${vol_actions[@]}" | tr ' ' '\n' | dmenu -p vol: "$@")
@@ -15,7 +15,11 @@ vol_action=$(echo "${vol_actions[@]}" | tr ' ' '\n' | dmenu -p vol: "$@")
 [[ -z "$vol_action" ]] && exit
 
 # Otherwise, perform the volume action.
+# For [j], [k], re-run volmenu for easy repeat.
 case "$vol_action" in
-    "mute") pactl set-sink-mute @DEFAULT_SINK@ toggle ;;
-    "reset") pactl set-sink-volume @DEFAULT_SINK@ 100% ;;
+    "[m]ute") pactl set-sink-mute @DEFAULT_SINK@ toggle ;;
+    "[r]eset") pactl set-sink-volume @DEFAULT_SINK@ 100% ;;
+    "[j]") pactl set-sink-volume @DEFAULT_SINK@ -5% && "$0" -m 0 -fn "Dina:size=8" -nb "#000000" -nf "#928374" -sb "#000000" -sf "#d3869b" ;;
+    "[k]") pactl set-sink-volume @DEFAULT_SINK@ +5% && "$0" -m 0 -fn "Dina:size=8" -nb "#000000" -nf "#928374" -sb "#000000" -sf "#d3869b" ;;
+    "[h]alf") pactl set-sink-volume @DEFAULT_SINK@ 50% ;;
 esac
