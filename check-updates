@@ -7,5 +7,5 @@
 #              outputs to two files. Useful for running as an hourly systemd
 #              timer/service, then piping the contents to a status bar.
 
-checkupdates       | wc -l > /tmp/checkup-official
-aurcheck -d custom | wc -l > /tmp/checkup-aur
+checkupdates | wc -l > /tmp/checkup-official
+pacman -Sl custom | grep "[installed]" | cut -d' ' -f2,3 | aur vercmp | wc -l > /tmp/checkup-aur
