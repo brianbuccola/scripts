@@ -17,9 +17,11 @@ fi
 if pgrep xautolock &>/dev/null; then
     pkill xautolock
     xset s off
+    xset -dpms
     echo "Screensaver and slock now OFF."
 else
     xset s 300 300
+    xset +dpms
     xautolock -time 5 -locker slock &
     echo "Screensaver and slock now ON."
 fi
