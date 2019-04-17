@@ -19,7 +19,7 @@ vol_action=$(echo "${vol_actions[@]}" | tr ' ' '\n' | dmenu -p vol: "$@")
 case "$vol_action" in
     "[m]ute") pactl set-sink-mute @DEFAULT_SINK@ toggle ;;
     "[r]eset") pactl set-sink-volume @DEFAULT_SINK@ 100% ;;
-    "[j]") pactl set-sink-volume @DEFAULT_SINK@ -5% && "$0" -m 0 -fn "Dina:size=8" -nb "#000000" -nf "#928374" -sb "#000000" -sf "#d3869b" ;;
-    "[k]") pactl set-sink-volume @DEFAULT_SINK@ +5% && "$0" -m 0 -fn "Dina:size=8" -nb "#000000" -nf "#928374" -sb "#000000" -sf "#d3869b" ;;
+    "[j]") pactl set-sink-volume @DEFAULT_SINK@ -5% && "$0" -m 0 -nb "#000000" -nf "#928374" -sb "#000000" -sf "#d3869b" ;;
+    "[k]") pactl set-sink-volume @DEFAULT_SINK@ +5% && "$0" -m 0 -nb "#000000" -nf "#928374" -sb "#000000" -sf "#d3869b" ;;
     "[h]alf") pactl set-sink-volume @DEFAULT_SINK@ 50% ;;
 esac
