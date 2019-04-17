@@ -36,4 +36,4 @@ weather_temp=$(echo "$weather_info" | grep -o -e '\"temp\":[^,]*' | awk -F ':' '
 weather_temp=$(echo "($weather_temp + 0.5) / 1" | bc)
 
 # Print weather description and temperature.
-echo "$weather_desc $weather_temp$temp_symbol"
+echo "$city_id: $weather_desc $weather_temp$temp_symbol"
