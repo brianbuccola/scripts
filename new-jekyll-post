@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# file:        new-jekyll-post
+# file:        new-post
 # author:      Brian Buccola <brian.buccola@gmail.com>
 #
-# description: Create a file (for a new Jekyll post) from an input title.
+# description: Create a file (for a new Jekyll/Hakyll/etc. post) from an input title.
 
-# Where is your Jekyll website?
-jekyll_dir="$HOME/repos/website"
+# Where are your posts?
+post_dir="$HOME/repos/website/posts"
 
 # Convert uppercase to lowercase, whitespace to '-', and '/' to '-', and delete
 # any character that is not alphanumeric or '-'.
@@ -24,19 +24,19 @@ die() {
     exit 1
 }
 
-# Check that we're in $jekyll_dir.
-[[ "$(pwd)" == "$jekyll_dir" ]] || die "Go to $jekyll_dir."
+# Check that we're in $post_dir.
+[[ "$(pwd)" == "$post_dir" ]] || die "Go to $post_dir."
 
 # Get title and turn it into a post filename.
 read -p "title: " title
-read -p "tags: " tags
-post="_posts/$(date +"%Y-%m-%d")-$(convert_string "$title").md"
+read -p "tags [as, a, list]: " tags
+post="$(date +"%Y-%m-%d")-$(convert_string "$title").md"
 
 # Check that the post doesn't already exist.
 [[ -f "$post" ]] && die "The file \"$post\" already exists."
 
 # Create a temp post, for reading YAML frontmatter from.
-tmp_post=$(mktemp --tmpdir --suffix .md jekyll-post-XXXXXXXXXX)
+tmp_post=$(mktemp --tmpdir --suffix .md blog-post-XXXXXXXXXX)
 
 # Escape any occurrence of '"' in $title.
 title=$(echo "$title" | sed 's/"/\\"/g')
@@ -44,7 +44,6 @@ title=$(echo "$title" | sed 's/"/\\"/g')
 # Create some basic YAML frontmatter.
 cat <<EOT > "$tmp_post"
 ---
-layout: post
 title: "$title"
 date: $(date +"%Y-%m-%d %H:%M")
 tags: $tags
