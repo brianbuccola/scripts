@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#
+# file:        docmenu
+# author:      Brian Buccola <brian.buccola@gmail.com>
+# description: dmenu script to open a PDF document with MuPDF.
+
+shopt -s nullglob globstar
+
+# Get a list of PDFs, stripping prefix and suffix.
+docs=( $HOME/documents/{books,papers}/*.pdf )
+docs=( "${docs[@]#$HOME/documents/books/}" )
+docs=( "${docs[@]#$HOME/documents/papers/}" )
+docs=( "${docs[@]%.pdf}" )
+
+# Pass the list to dmenu to select a PDF.
+doc=$(printf '%s\n' "${docs[@]}" | dmenu -p doc: "$@")
+
+# If the user cancels dmenu, just exit.
+[[ -n "$doc" ]] || exit
+
+# Look for the doc in books, otherwise in papers.
+[[ -f $HOME/documents/books/"$doc".pdf ]] && doc=$HOME/documents/books/"$doc".pdf || doc=$HOME/documents/papers/"$doc".pdf
+
+# Open the PDF.
+mupdf "$doc"
