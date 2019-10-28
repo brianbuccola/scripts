@@ -7,8 +7,8 @@
 #              percentage. Requires xmessage and bc.
 
 ac_status=$(cat /sys/class/power_supply/AC/online)
-now=$(cat /sys/class/power_supply/BAT0/energy_now)
-full=$(cat /sys/class/power_supply/BAT0/energy_full)
+now=$(cat /sys/class/power_supply/BAT0/charge_now)
+full=$(cat /sys/class/power_supply/BAT0/charge_full)
 pct_now=$(echo "$now / $full * 100" | bc -l | sed 's/\.[0-9]*//')
 
 # Percent at which to raise warning.
