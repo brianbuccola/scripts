@@ -8,14 +8,27 @@
 #              <Fn-BrightnessUp> and <Fn-BrightnessDown> keys don't work.
 
 brightness_file="/sys/class/backlight/intel_backlight/brightness"
-max_brightness=4437
-min_brightness=70
+max_brightness=120000
+min_brightness=3000
+half_brightness=60000
 current_brightness=$(cat "$brightness_file")
-up_amt=700
-down_amt=700
+up_amt=10000
+down_amt=10000
 
 brt_change() {
   echo "$1" | sudo tee "$brightness_file"
+}
+
+brt_max() {
+    brt_change "$max_brightness"
+}
+
+brt_min() {
+    brt_change "$min_brightness"
+}
+
+brt_half() {
+    brt_change "$half_brightness"
 }
 
 brt_up() {
@@ -39,6 +52,9 @@ brt_down() {
 if [[ $# -eq 1 ]]; then
   case "$1" in
     [0-9]*) brt_change "$1" && exit 0;;
+    max) brt_max && exit 0;;
+    min) brt_min && exit 0;;
+    half) brt_half && exit 0;;
     up) brt_up && exit 0;;
     down) brt_down && exit 0;;
     *) echo "Error: invalid argument. Pick a brightness level ($min_brightness-$max_brightness), or say 'up' or 'down'." && exit 1;;
