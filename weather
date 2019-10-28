@@ -19,7 +19,8 @@ wifi_status=$(</sys/class/net/"$interface"/operstate)
 api_key="4bbc64162016d9e345436714dd896ecc"
 
 # City,Country.
-city_id="Paris,FR"
+city_id="Lansing,US"
+# city_id="Paris,FR"
 # city_id="London,CA"
 # city_id="New Orleans,US"
 
