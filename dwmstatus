@@ -10,24 +10,10 @@ bat() {
     bat_status=$(</sys/class/power_supply/BAT0/status)
     bat_pct=$(</sys/class/power_supply/BAT0/capacity)
     bat_time_left=$(acpi -b | awk '{ print $5 }' | cut -d: -f1,2)
-
-    if [[ "$bat_pct" -ge 80 ]]; then
-        echo -n " "
-    elif [[ "$bat_pct" -ge 60 ]]; then
-        echo -n " "
-    elif [[ "$bat_pct" -ge 40 ]]; then
-        echo -n " "
-    elif [[ "$bat_pct" -ge 20 ]]; then
-        echo -n " "
-    elif [[ "$bat_pct" -ge 10 ]]; then
-        echo -n " "
-    else
-        echo -n " "
-    fi
     echo -n "$bat_pct%"
     [[ "$bat_status" = "Discharging" ]] && echo -n " ($bat_time_left)"
-    [[ "$bat_status" = "Charging"    ]] && echo -n " "
-    [[ "$bat_status" = "Unknown"     ]] && echo -n " ﮣ"
+    [[ "$bat_status" = "Charging"    ]] && echo -n " (charging)"
+    [[ "$bat_status" = "Unknown"     ]] && echo -n " (idle)"
 }
 
 ban() {
@@ -47,7 +33,7 @@ ban() {
     tx_kib=$(( $tx_rate >> 10 ))
 
     # incoming
-    echo -n "ﰬ "
+    echo -n "down: "
     if [[ "$rx_rate" -gt 1048576 ]]; then
         printf '%sM' $(echo "scale=1; $rx_kib / 1024" | bc)
     else
@@ -57,7 +43,7 @@ ban() {
     echo -n " "
 
     # outgoing
-    echo -n "ﰵ "
+    echo -n "up: "
     if [[ "$tx_rate" -gt 1048576 ]]; then
         printf '%sM' $(echo "scale=1; $tx_kib / 1024" | bc)
     else
@@ -112,7 +98,7 @@ wif() {
 }
 
 if [[ "$(wif)" ]]; then
-    xsetroot -name "$(mpd && echo -n '  ') $(wif)  $(ban)   $(wea)   $(ups)  $(bat)   $(vol)   $(dat)"
+    xsetroot -name "$(mpd && echo -n ' · ')$(wif) · $(ban) · $(ups) · bat: $(bat) · vol: $(vol) · $(dat)"
 else
-    xsetroot -name "$(mpd && echo -n '  ')$(bat)  墳 $(vol)   $(dat)"
+    xsetroot -name "$(mpd && echo -n ' | ')$(bat) | $(vol) | $(dat)"
 fi
