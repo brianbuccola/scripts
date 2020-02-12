@@ -18,13 +18,14 @@ bat() {
 }
 
 ban() {
-    rx1=$(</sys/class/net/wlp3s0/statistics/rx_bytes)
-    tx1=$(</sys/class/net/wlp3s0/statistics/tx_bytes)
+    interface=$(iwconfig 2>&1 | awk '/^w/ { print $1 }')
+    rx1=$(</sys/class/net/"$interface"/statistics/rx_bytes)
+    tx1=$(</sys/class/net/"$interface"/statistics/tx_bytes)
 
     sleep 1
 
-    rx2=$(</sys/class/net/wlp3s0/statistics/rx_bytes)
-    tx2=$(</sys/class/net/wlp3s0/statistics/tx_bytes)
+    rx2=$(</sys/class/net/"$interface"/statistics/rx_bytes)
+    tx2=$(</sys/class/net/"$interface"/statistics/tx_bytes)
 
     rx_rate=$(( $rx2 - $rx1 ))
     tx_rate=$(( $tx2 - $tx1 ))
