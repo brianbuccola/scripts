@@ -57,7 +57,7 @@ if [[ $# -eq 1 ]]; then
     half) brt_half && exit 0;;
     up) brt_up && exit 0;;
     down) brt_down && exit 0;;
-    *) echo "Error: invalid argument. Pick a brightness level ($min_brightness-$max_brightness), or say 'up' or 'down'." && exit 1;;
+    *) echo "Error: invalid argument. Pick a brightness level ($min_brightness-$max_brightness), or say 'up', 'down', 'max', 'min', or 'half'." && exit 1;;
   esac
 elif [[ $# -eq 0 ]]; then
   echo "$current_brightness"
