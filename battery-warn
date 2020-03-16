@@ -6,18 +6,19 @@
 # description: This script warns you when your battery dips below a certain
 #              percentage. Requires xmessage and bc.
 
-ac_status=$(cat /sys/class/power_supply/AC/online)
-now=$(cat /sys/class/power_supply/BAT0/charge_now)
-full=$(cat /sys/class/power_supply/BAT0/charge_full)
-pct_now=$(echo "$now / $full * 100" | bc -l | sed 's/\.[0-9]*//')
+# Get AC status.
+ac_status=$(acpi | awk '{print $3}' | tr -d ',')
+
+# If charging, do nothing and exit.
+if [[ $ac_status == "Charging" ]]; then
+    exit 0
+fi
+
+# Get current percent.
+pct_now=$(acpi | awk '{print $4}' | tr -d '%,')
 
 # Percent at which to raise warning.
 pct_threshold=5
-
-# If charging, do nothing and exit.
-if [[ $ac_status -eq 1 ]]; then
-    exit 0
-fi
 
 # If more than $pct_threshold, do nothing and exit.
 if [[ $pct_now -gt $pct_threshold ]]; then
