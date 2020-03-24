@@ -102,5 +102,5 @@ wif() {
 if [[ "$(wif)" ]]; then
     xsetroot -name "$(mpd && echo -n ' · ')$(wif) · $(ban) · $(ups) · bat: $(bat) · vol: $(vol) · $(dat)"
 else
-    xsetroot -name "$(mpd && echo -n ' | ')$(bat) | $(vol) | $(dat)"
+    xsetroot -name "$(mpd && echo -n ' · ')bat: $(bat) · vol: $(vol) · $(dat)"
 fi
