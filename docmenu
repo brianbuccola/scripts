@@ -6,10 +6,13 @@
 
 shopt -s nullglob globstar
 
+# Set documents directory.
+docs_dir="$HOME/docs"
+
 # Get a list of PDFs, stripping prefix and suffix.
-docs=( $HOME/documents/{books,papers}/*.pdf )
-docs=( "${docs[@]#$HOME/documents/books/}" )
-docs=( "${docs[@]#$HOME/documents/papers/}" )
+docs=( "$docs_dir"/{books,papers}/*.pdf )
+docs=( "${docs[@]#$docs_dir/books/}" )
+docs=( "${docs[@]#$docs_dir/papers/}" )
 docs=( "${docs[@]%.pdf}" )
 
 # Pass the list to dmenu to select a PDF.
@@ -19,7 +22,7 @@ doc=$(printf '%s\n' "${docs[@]}" | dmenu -p doc: "$@")
 [[ -n "$doc" ]] || exit
 
 # Look for the doc in books, otherwise in papers.
-[[ -f $HOME/documents/books/"$doc".pdf ]] && doc=$HOME/documents/books/"$doc".pdf || doc=$HOME/documents/papers/"$doc".pdf
+[[ -f "$docs_dir"/books/"$doc".pdf ]] && doc="$docs_dir/books/$doc".pdf || doc="$docs_dir/papers/$doc".pdf
 
 # Open the PDF.
 mupdf "$doc"
