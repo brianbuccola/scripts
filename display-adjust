@@ -6,9 +6,9 @@
 # description: If external monitor is present, auto-adjust it; otherwise,
 #              auto-adjust laptop monitor (and turn off external monitor).
 
-if [[ -n "$(xrandr | grep "HDMI1 connected")" ]]; then
-    xrandr --output HDMI1 --auto
+if [[ -n "$(xrandr | grep "HDMI-1 connected")" ]]; then
+    xrandr --output HDMI-1 --auto
 else
-    xrandr --output eDP1 --auto
-    xrandr --output HDMI1 --off
+    xrandr --output eDP-1 --auto
+    xrandr --output HDMI-1 --off
 fi
