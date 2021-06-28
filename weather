@@ -22,8 +22,8 @@ api_key="4bbc64162016d9e345436714dd896ecc"
 city_id="Lansing,US"
 
 # Units and symbol to use.
-units="metric"
-temp_symbol="°C"
+units="imperial"
+temp_symbol="°F"
 
 # Get weather info.
 weather_url="https://api.openweathermap.org/data/2.5/weather?q=$city_id&appid=$api_key&units=$units"
