@@ -4,7 +4,7 @@
 # author:      Brian Buccola <brian.buccola@gmail.com>
 #
 # description: This script warns you when your battery dips below a certain
-#              percentage. Requires xmessage and bc.
+#              percentage. Requires acpi, xmessage, and bc.
 
 # Get AC status.
 ac_status=$(acpi | awk '{print $3}' | tr -d ',')
